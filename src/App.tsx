@@ -1,22 +1,10 @@
-import { useState } from 'react'
-
 import './App.css'
 import JatekTer from './components/JatekTer'
-import { MEZOLISTA, type MezoTipus } from './adatok'
 import Sugo from './components/Sugo';
+import { useMezoContext } from './contexts/MezoContext';
 
 export default function App() {
-  const [lista, setLista] = useState(MEZOLISTA);
-  const [lepes, setLepes] = useState(0);
-
-  function mezoKivalaszt(index: number) {
-    if (lista[index].jel !=="") return;
-    
-    const ujLista: MezoTipus[] = [...lista];
-    ujLista[index] = { ...ujLista[index], jel: lepes % 2 === 0 ? 'O' : 'X'};
-    setLepes(lepes + 1);
-    setLista(ujLista);
-  }
+  const { lista, lepes, mezoKivalaszt } = useMezoContext();
 
   return (
     <>

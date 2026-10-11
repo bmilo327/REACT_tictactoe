@@ -1,4 +1,5 @@
 import type { MezoTipus } from "../adatok";
+import { useMezoContext } from "../contexts/MezoContext";
 import "./jatekter.css";
 
 interface MezoProps {
@@ -7,17 +8,12 @@ interface MezoProps {
     mezoKivalaszt: (index:number)=>void
 }
 
-export default function Mezo({mezom, index, mezoKivalaszt}: MezoProps) {
+export default function Mezo({mezom, index}: MezoProps) {
+    const { kattintasKezeles } = useMezoContext();
     const uresE = mezom.jel !== "" ? "foglalt" : "ures";
-    
-    function kattintasKezeles() {
-        if (mezom.jel === "") {
-            mezoKivalaszt(index);
-        }
-    }
 
     return(
-        <div className={`mezo ${uresE}`} onClick={kattintasKezeles}>
+        <div className={`mezo ${uresE}`} onClick={() => kattintasKezeles(index)}>
             <p>{mezom.jel}</p>
         </div>
     )
